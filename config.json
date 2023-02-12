@@ -1,0 +1,15 @@
+{
+	"database": {
+		"host": "",
+		"port": 0,
+		"user": "",
+		"password": "",
+		"dbname": ""
+	},
+	"server": {
+		"port": 8080
+	},
+	"jwt": {
+		"timeout": "1h"
+	}
+}
