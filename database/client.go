@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	"jwt-auth/models"
+	"kids-score/models"
 	"log"
 
 	"gorm.io/driver/postgres"

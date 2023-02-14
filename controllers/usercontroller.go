@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"jwt-auth/database"
-	"jwt-auth/middlewares"
-	"jwt-auth/models"
+	"kids-score/database"
+	"kids-score/middlewares"
+	"kids-score/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

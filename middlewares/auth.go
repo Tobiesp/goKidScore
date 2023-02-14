@@ -1,8 +1,8 @@
 package middlewares
 
 import (
-	helper "jwt-auth/helpers"
-	"jwt-auth/models"
+	helper "kids-score/helpers"
+	"kids-score/models"
 	"log"
 	"strconv"
 	"strings"

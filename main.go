@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"jwt-auth/config"
-	"jwt-auth/controllers"
-	"jwt-auth/database"
-	"jwt-auth/middlewares"
+	"kids-score/config"
+	"kids-score/controllers"
+	"kids-score/database"
+	"kids-score/middlewares"
 
 	"github.com/gin-gonic/gin"
 )

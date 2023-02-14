@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"jwt-auth/config"
-	"jwt-auth/database"
-	"jwt-auth/models"
+	"kids-score/config"
+	"kids-score/database"
+	"kids-score/models"
 
 	"github.com/dgrijalva/jwt-go"
 )

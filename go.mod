@@ -1,4 +1,4 @@
-module jwt-auth
+module kids-score
 
 go 1.19
 
