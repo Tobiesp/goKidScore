@@ -1,15 +1,15 @@
 {
-	"database": {
-		"host": "",
-		"port": 0,
-		"user": "",
-		"password": "",
-		"dbname": ""
-	},
-	"server": {
-		"port": 8080
-	},
-	"jwt": {
-		"timeout": "1h"
-	}
+    "database" : {
+        "host": "127.0.0.1",
+        "port": 15432,
+        "user": "Admin",
+        "password": "AdminPassword",
+        "dbname": "jwt_demo"
+    },
+    "server": {
+        "port": 8080
+    },
+    "jwt": {
+        "timeout": "1h"
+    }
 }

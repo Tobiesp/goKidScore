@@ -2,19 +2,20 @@ package config
 
 import (
 	"log"
+
 	"github.com/spf13/viper"
 )
 
 type Config struct {
-	Database struct {
-                Host string
-	        Port int
-	        User string
-	        Password string
-	        DBName string
-	}
 	Server struct {
-                Port int
+		Port int
+	}
+	Database struct {
+		Host     string
+		Port     int
+		User     string
+		Password string
+		Dbname   string
 	}
 	Jwt struct {
 		Timeout string
@@ -23,7 +24,7 @@ type Config struct {
 
 var AppConfig *Config
 
-func LoadAppConfig(){
+func LoadAppConfig() {
 	log.Println("Loading Server Configurations...")
 	viper.AddConfigPath(".")
 	viper.SetConfigName("config")

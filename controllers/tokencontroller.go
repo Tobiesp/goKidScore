@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"jwt-authentication-golang/auth"
-	"jwt-authentication-golang/database"
-	"jwt-authentication-golang/models"
+	"jwt-auth/database"
+	helper "jwt-auth/helpers"
+	"jwt-auth/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -22,7 +22,6 @@ func GenerateToken(context *gin.Context) {
 		context.Abort()
 		return
 	}
-
 	// check if email exists and password is correct
 	record := database.Instance.Where("email = ?", request.Email).First(&user)
 	if record.Error != nil {
@@ -30,15 +29,29 @@ func GenerateToken(context *gin.Context) {
 		context.Abort()
 		return
 	}
-
 	credentialError := user.CheckPassword(request.Password)
 	if credentialError != nil {
+		if !user.Enabled {
+			context.JSON(http.StatusUnauthorized, gin.H{"error": "User Locked"})
+			context.Abort()
+			return
+		}
+		user.IncreaseFailedLogin()
+		if user.FailedLogin > 3 {
+			user.Enabled = false
+			database.Instance.Save(user)
+			context.JSON(http.StatusUnauthorized, gin.H{"error": "User Locked"})
+			context.Abort()
+			return
+		}
 		context.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials"})
 		context.Abort()
 		return
 	}
-
-	tokenString, err:= auth.GenerateJWT(user.Email, user.Username)
+	user.ResetFailedLogin()
+	user.SetLastLogin()
+	database.Instance.Save(user)
+	tokenString, err := helper.GenerateJWT(user.Email, user.Username)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		context.Abort()
