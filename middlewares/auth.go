@@ -54,6 +54,7 @@ func IsAdmin(context *gin.Context) bool {
 }
 
 func hasPermission(user models.User, action string, route string) bool {
+	//TODO: Remove the following if
 	if user.Email == "j.jack@test.org" {
 		return true
 	}
@@ -70,9 +71,12 @@ func hasPermission(user models.User, action string, route string) bool {
 		}
 	}
 	if user.Role == "reader" && action == "read" {
-		if strings.HasPrefix(route, "api/user/") && strings.HasSuffix(route, strconv.FormatInt(int64(user.ID), 10)) {
+		if route == "api/secured/users/" {
+			return false
+		}
+		if strings.HasPrefix(route, "api/secured/user/") && strings.HasSuffix(route, strconv.FormatInt(int64(user.ID), 10)) {
 			return true
-		} else if strings.HasPrefix(route, "api/user/") && !strings.HasSuffix(route, strconv.FormatInt(int64(user.ID), 10)) {
+		} else if strings.HasPrefix(route, "api/secured/user/") && !strings.HasSuffix(route, strconv.FormatInt(int64(user.ID), 10)) {
 			return false
 		} else {
 			return true

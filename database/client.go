@@ -36,4 +36,40 @@ func Connect(connectionInfo ConnectionInfo) {
 func Migrate() {
 	Instance.AutoMigrate(&models.User{})
 	log.Println("Database Migration Completed!")
+	loadInitialData()
+	log.Println("Initial data load complete!")
+}
+
+func loadInitialData() {
+	loadInitialUserData()
+	//TODO: Add load for groups
+	//TODO: Add load for score types
+}
+
+func loadInitialUserData() {
+	var user models.User
+	var user2 models.User
+	user.Email = "admin@kidscore.org"
+	user.Name = "ksAdmin"
+	user.Username = "ksAdmin"
+	user.Enabled = true
+	user.FailedLogin = 0
+	user.Role = "Admin"
+	if err := user.HashPassword(user.Password); err != nil {
+		log.Println("Error: " + err.Error())
+		return
+	}
+	count := int64(0)
+	res := Instance.Model(&user2).
+		Where("username = ?", user.Username).
+		Count(&count)
+
+	if res.Error != nil {
+		log.Println("ERROR: " + res.Error.Error())
+	}
+
+	if count == 0 {
+		// user does not exists
+		Instance.Save(&user)
+	}
 }
