@@ -102,7 +102,7 @@ func GetUserFromToken(signedToken string) (models.User, error) {
 	}
 	record := database.Instance.Where("email = ?", claims.Email).First(&user)
 	if record.Error != nil {
-		return user, errors.New("Could not find user.")
+		return user, errors.New("could not find user")
 	}
 	return user, nil
 }

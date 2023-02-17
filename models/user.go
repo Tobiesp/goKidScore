@@ -37,6 +37,12 @@ type User struct {
 	FailedLogin int       `json:"failedLogonCount"`
 }
 
+type UserPaswordView struct {
+	OldPassword    string `json:"oldPassword"`
+	NewPassword    string `json:"newPassword"`
+	RepeatPassword string `json:"repeatPassword"`
+}
+
 func (user *User) HashPassword(password string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	if err != nil {
